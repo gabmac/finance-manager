@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 from fastapi import APIRouter
 
@@ -21,7 +22,7 @@ class BaseRouterViewNoUseCase(ABC):
 
 
 class BaseRouterView(BaseRouterViewNoUseCase):
-	def __init__(self, name: str, use_case: object) -> None:
+	def __init__(self, name: str, use_case: Any) -> None:
 		self.use_case = use_case
 		super().__init__(name)
 		self._add_to_router()

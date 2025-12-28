@@ -20,16 +20,22 @@ class DatabaseSettings:
 	engine: Engine | None = None
 
 	def __new__(
-		cls, host: str, password: str, port: int, user: str, database: str
+		cls,
+		host: str,
+		password: str,
+		port: int,
+		user: str,
+		database: str,
 	) -> 'DatabaseSettings':
 		if cls._instance is None:
-			cls.host = host
-			cls.password = password
-			cls.port = port
-			cls.user = user
-			cls.database = database
-			cls._create_engine()
-			cls._instance = cls
+			instance = super().__new__(cls)
+			instance.host = host
+			instance.password = password
+			instance.port = port
+			instance.user = user
+			instance.database = database
+			instance._create_engine()
+			cls._instance = instance
 		return cls._instance
 
 	@classmethod

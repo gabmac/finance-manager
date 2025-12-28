@@ -5,5 +5,5 @@ class LoginUseCase:
 	def __init__(self, sso_adapter: SSOPort):
 		self.sso_adapter = sso_adapter
 
-	async def execute(self):
+	async def execute(self) -> dict[str, str]:
 		return await self.sso_adapter.login()

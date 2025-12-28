@@ -19,7 +19,7 @@ class CallbackRouter(BaseRouterView):
 		self.use_case = use_case_factory
 		self.google_sso_adapter = google_sso_adapter
 
-	def _add_to_router(self):
+	def _add_to_router(self) -> None:
 		self.router.add_api_route(
 			'/callback',
 			self.callback,
@@ -36,7 +36,8 @@ class CallbackRouter(BaseRouterView):
 				adapter = self.google_sso_adapter
 			case _:
 				raise HTTPException(
-					status_code=status.HTTP_400_BAD_REQUEST, detail='Invalid provider'
+					status_code=status.HTTP_400_BAD_REQUEST,
+					detail='Invalid provider',
 				)
 
 		use_case = self.use_case(

@@ -10,9 +10,12 @@ from fastapi import (
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.adapters.database.models.session import DatabaseSettings
-from src.adapters.database.repository.balance_reader_repository import BalanceReaderRepository
+from src.adapters.database.repository.balance_reader_repository import (
+	BalanceReaderRepository,
+)
 from src.adapters.database.repository.user_reader_repository import UserReaderRepository
 from src.adapters.database.repository.user_writer_repository import UserWriterRepository
+from src.adapters.entrypoints.api.balance.users_balance import BalanceRouter
 from src.adapters.entrypoints.api.cross_cutting.middleware_context import (
 	RequestContextsMiddleware,
 )
@@ -26,7 +29,6 @@ from src.adapters.entrypoints.api.monitoring.health import HealthRouter
 from src.adapters.entrypoints.api.router import API, AuthAPI
 from src.adapters.entrypoints.api.user.callback import CallbackRouter
 from src.adapters.entrypoints.api.user.login import LoginRouter
-from src.adapters.entrypoints.api.balance.users_balance import BalanceRouter
 from src.adapters.sso.google import GoogleSSOAdapter
 from src.settings.config import GoogleConfig, JWTConfig, PostgresConfig, System
 from src.use_case.callback import CallbackUseCase
@@ -88,8 +90,8 @@ class AppConfig:
 
 	def init_routes(self) -> None:
 		"""Intialize Routes"""
-		self.app.include_router(self.router)
-		self.app.include_router(self.auth_router)
+		self.app.include_router(self.router)  # type: ignore
+		self.app.include_router(self.auth_router)  # type: ignore
 
 	def start_application(self) -> FastAPI:
 		"""Start Application with Environment"""
@@ -116,7 +118,7 @@ def init_api() -> FastAPI:
 
 	get_balance_use_case = GetBalanceUseCase(balance_reader=balance_reader)
 
-	callback_use_case_factory = lambda sso_adapter: CallbackUseCase(
+	callback_use_case_factory = lambda sso_adapter: CallbackUseCase(  # noqa: E731
 		sso_adapter=sso_adapter,
 		user_reader=user_reader,
 		user_writer=user_writer,
@@ -138,14 +140,14 @@ def init_api() -> FastAPI:
 		),
 		callback_router=CallbackRouter(
 			name='{provider}',
-			use_case_factory=callback_use_case_factory,
+			use_case_factory=callback_use_case_factory,  # type: ignore
 			google_sso_adapter=GoogleSSOAdapter(config=GoogleConfig()),
 		),
 	)
 
 	return AppConfig(
 		router=initializer.router,
-		auth_router=auth_api.router,
+		auth_router=auth_api.router,  # type: ignore
 		db_config=db_config,
 		jwt_config=jwt_config,
 		config=System(),

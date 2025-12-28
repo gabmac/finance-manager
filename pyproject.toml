@@ -52,3 +52,9 @@ implicit_reexport = true
 allow_untyped_decorators = true
 warn_return_any = false
 warn_unused_ignores = false
+explicit_package_bases = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = "*.models.*"
+disable_error_code = ["name-defined"]

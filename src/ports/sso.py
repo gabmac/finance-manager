@@ -7,7 +7,7 @@ from src.entities.user import User
 
 class SSOPort(ABC):
 	@abstractmethod
-	async def login(self) -> dict:
+	async def login(self) -> dict[str, str]:
 		"""
 		Login with SSO
 		"""

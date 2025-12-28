@@ -1,5 +1,4 @@
-from datetime import datetime
-from time import timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid7
 
 from pydantic import Field
@@ -13,10 +12,10 @@ class Balance(BaseEntity):
 	id: UUID = Field(default_factory=uuid7)
 	amount: float = Field(description='Balance amount')
 	created_at: datetime = Field(
-		default_factory=lambda: datetime.now(timezone.utc),
+		default_factory=lambda: datetime.now(UTC),
 		description='Balance created at',
 	)
 	updated_at: datetime = Field(
-		default_factory=lambda: datetime.now(timezone.utc),
+		default_factory=lambda: datetime.now(UTC),
 		description='Balance updated at',
 	)

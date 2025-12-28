@@ -31,12 +31,6 @@ repos:
     stages: [commit-msg]
     args: [fixup!, build, chore, ci, docs, style, refactor, perf, test]
 
-- repo: https://github.com/asottile/pyupgrade
-  rev: v2.34.0
-  hooks:
-  - id: pyupgrade
-    args: [--py36-plus]
-
 - repo: https://github.com/asottile/add-trailing-comma
   rev: v2.1.0
   hooks:
@@ -59,9 +53,16 @@ repos:
     language: system
     types: [python]
 
-  - id: ruff
-    name: Check with Ruff
-    entry: ruff check --fix --select I && ruff check --fix
+  - id: ruff-sort
+    name: Sort with Ruff
+    entry: ruff check --fix --select I
+    language: system
+    types: [python]
+
+
+  - id: ruff-fix
+    name: Fix with Ruff
+    entry: ruff check --fix
     language: system
     types: [python]
 
