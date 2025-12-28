@@ -1,7 +1,7 @@
 """Application Settings"""
 
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
+from typing import Any, AsyncGenerator
 
 from fastapi import (
 	APIRouter,
@@ -75,6 +75,31 @@ class AppConfig:
 			allow_headers=['*'],
 		)
 
+	def init_security_schemes(self) -> None:
+		"""Configure OpenAPI security schemes for swagger UI."""
+
+		# Store reference to original openapi method
+		original_openapi = self.app.openapi
+
+		def custom_openapi() -> Any:
+			if self.app.openapi_schema:
+				return self.app.openapi_schema
+			openapi_schema = original_openapi()
+			openapi_schema['components']['securitySchemes'] = {
+				'BearerAuth': {
+					'type': 'http',
+					'scheme': 'bearer',
+					'bearerFormat': 'JWT',
+				},
+			}
+			openapi_schema['security'] = [
+				{'BearerAuth': []},
+			]
+			self.app.openapi_schema = openapi_schema
+			return self.app.openapi_schema
+
+		self.app.openapi = custom_openapi  # type: ignore
+
 	def init_context(self) -> None:
 		self.app.add_middleware(
 			RequestContextsMiddleware,  # pyright: ignore[reportUndefinedVariable]
@@ -97,6 +122,7 @@ class AppConfig:
 		"""Start Application with Environment"""
 		self.init_context()
 		self.init_cors()
+		self.init_security_schemes()
 		self.init_routes()
 		return self.app
 
