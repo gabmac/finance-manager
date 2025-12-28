@@ -1,0 +1,91 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.3.0
+  hooks:
+  - id: check-ast
+  - id: trailing-whitespace
+  - id: check-toml
+  - id: check-case-conflict
+  - id: check-json
+    exclude: ^(.vscode/|.github/workflows/configuration.json)
+  - id: pretty-format-json
+    exclude: ^(common/|deploy/task-definition.json|database_modeler.json|.vscode/|legacy_integration_table.json|legacy_token_manager_table.json)
+  - id: mixed-line-ending
+  - id: debug-statements
+  - id: check-added-large-files
+    exclude: /static/
+  - id: check-xml
+  - id: check-yaml
+    exclude: ^deploy/kube/
+  - id: detect-aws-credentials
+    args: [--allow-missing-credentials]
+  - id: detect-private-key
+  - id: end-of-file-fixer
+
+- repo: https://github.com/compilerla/conventional-pre-commit
+  rev: v2.2.0
+  hooks:
+  - id: conventional-pre-commit
+    stages: [commit-msg]
+    args: [fixup!, build, chore, ci, docs, style, refactor, perf, test]
+
+- repo: https://github.com/asottile/pyupgrade
+  rev: v2.34.0
+  hooks:
+  - id: pyupgrade
+    args: [--py36-plus]
+
+- repo: https://github.com/asottile/add-trailing-comma
+  rev: v2.1.0
+  hooks:
+  - id: add-trailing-comma
+
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.15.0
+  hooks:
+  - id: pretty-format-yaml
+    args:
+    - --autofix
+    - --preserve-quotes
+    - --indent=2
+
+- repo: local
+  hooks:
+  - id: ruff
+    name: Format with Ruff
+    entry: ruff format
+    language: system
+    types: [python]
+
+  - id: ruff
+    name: Check with Ruff
+    entry: ruff check --fix --select I && ruff check --fix
+    language: system
+    types: [python]
+
+  - id: mypy
+    name: Validate types with MyPy
+    entry: mypy
+    language: system
+    types: [python]
+    pass_filenames: false
+    args:
+    - "src"
+    - --config=pyproject.toml
+
+  # - id: bandit
+  #   name: Bandit validation
+  #   entry: bandit
+  #   language: system
+  #   types: [python]
+  #   args:
+  #   - -r
+  #   - src
+
+  # - id: pip-audit
+  #   name: Pip Audit validation
+  #   entry: bash -c "poetry export --without-hashes | poetry run pip-audit --no-deps -r /dev/stdin"
+  #   language: system
+  #   types: [python]
