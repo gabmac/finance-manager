@@ -76,6 +76,17 @@ repos:
     - "src"
     - --config=pyproject.toml
 
+  - id: mypy-test
+    name: Validate types with MyPy
+    entry: mypy
+    language: system
+    types: [python]
+    pass_filenames: false
+    args:
+    - "test"
+    - --config=pyproject.toml
+
+
   # - id: bandit
   #   name: Bandit validation
   #   entry: bandit

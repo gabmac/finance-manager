@@ -58,3 +58,7 @@ plugins = ["pydantic.mypy"]
 [[tool.mypy.overrides]]
 module = "*.models.*"
 disable_error_code = ["name-defined"]
+
+[[tool.mypy.overrides]]
+module = "test.*"
+disable_error_code = ["attr-defined", "no-untyped-def", "union-attr"]

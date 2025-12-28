@@ -67,7 +67,7 @@ class CallbackTest(UserConfTest):
 		with self.db.get_session() as session:
 			# And the user should be updated in the database
 			user = session.exec(
-				select(UserModel).where(UserModel.id == self.user.id)
+				select(UserModel).where(UserModel.id == self.user.id),
 			).first()
-			user = UserWithBalance.model_validate(user)
+			user = UserWithBalance.model_validate(user)  # type: ignore
 			self.assertEqual(user, self.user_with_balance)

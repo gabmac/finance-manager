@@ -9,6 +9,6 @@ class UserConfTest(BaseViewConfTest):
 		super().setUp()
 		self.user = self.user_generator.build()
 		self.user_with_balance = self.user_with_balance_generator.build().model_copy(
-			update=self.user.model_dump()
+			update=self.user.model_dump(),
 		)
-		GoogleSSOAdapter.callback = AsyncMock(return_value=self.user)
+		GoogleSSOAdapter.callback = AsyncMock(return_value=self.user)  # type: ignore
