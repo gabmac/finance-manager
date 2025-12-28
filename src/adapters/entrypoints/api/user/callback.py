@@ -2,7 +2,7 @@ from typing import Callable
 
 from fastapi import HTTPException, Request, status
 
-from src.dto.user import UserWithJWT
+from src.dto.out.user import UserWithJWT
 from src.ports.base_router import BaseRouterView
 from src.ports.sso import SSOPort
 from src.use_case.callback import CallbackUseCase

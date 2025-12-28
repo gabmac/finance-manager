@@ -4,8 +4,7 @@ from uuid import UUID, uuid7
 from pydantic import BaseModel, Field
 
 
-
-class User(BaseModel):
+class UserWithJWT(BaseModel):
 	id: UUID = Field(default_factory=uuid7)
 	email: str = Field(description='User email')
 	first_name: str = Field(description='User first name')
@@ -15,9 +14,6 @@ class User(BaseModel):
 		default_factory=lambda: datetime.now(UTC),
 		description='User created at',
 	)
-
-
-class UserWithJWT(User):
 	jwt: str = Field(
 		description='User JWT',
 		pattern=r'^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$',
