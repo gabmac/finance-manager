@@ -1,4 +1,5 @@
 from datetime import UTC, datetime
+from decimal import Decimal
 
 from sqlmodel import Field
 
@@ -11,7 +12,7 @@ class TransactionModel(BaseModel, table=True):
 
 	__tablename__ = 'transaction'
 
-	amount: float = Field(nullable=False)
+	amount: Decimal = Field(nullable=False)
 	description: str | None = Field(nullable=True)
 	type: TransactionType = Field(nullable=False)
 	created_at: datetime = Field(

@@ -1,12 +1,12 @@
 from datetime import UTC, datetime
 from uuid import UUID, uuid7
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr, Field
 
 
 class UserWithJWT(BaseModel):
 	id: UUID = Field(default_factory=uuid7)
-	email: str = Field(description='User email')
+	email: EmailStr = Field(description='User email')
 	first_name: str = Field(description='User first name')
 	last_name: str = Field(description='User last name')
 	is_active: bool = Field(description='User is active')

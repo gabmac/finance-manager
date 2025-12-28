@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from fastapi import status
 
 from src.adapters.database.models.balance import BalanceModel
@@ -33,7 +35,10 @@ class BalanceTest(BalanceConfTest):
 		# Then I should receive the balance
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
 		response_data = response.json()
-		self.assertEqual(response_data['amount'], self.user_with_balance.balance.amount)
+		self.assertEqual(
+			Decimal(response_data['amount']),
+			self.user_with_balance.balance.amount,
+		)
 
 	def test_get_balance_user_not_found(self):
 		# Scenario: User not in the database
@@ -108,4 +113,3 @@ class BalanceTest(BalanceConfTest):
 		self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 		response_data = response.json()
 		self.assertIn('detail', response_data)
-

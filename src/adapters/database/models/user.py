@@ -1,5 +1,6 @@
 from datetime import UTC, datetime
 
+from pydantic import EmailStr
 from sqlmodel import Field, Relationship
 
 from src.adapters.database.models.base_model import BaseModel
@@ -10,7 +11,7 @@ class UserModel(BaseModel, table=True):
 
 	__tablename__ = 'user'
 
-	email: str = Field(nullable=False, unique=True, index=True)
+	email: EmailStr = Field(nullable=False, unique=True, index=True)
 	first_name: str = Field(nullable=False)
 	last_name: str = Field(nullable=False)
 	is_active: bool = Field(default=True)

@@ -1,4 +1,5 @@
 from datetime import UTC, datetime
+from decimal import Decimal
 
 from pydantic import Field
 
@@ -9,7 +10,7 @@ from src.enums.transaction import TransactionType
 class Transaction(BaseEntity):
 	"""Transaction entity."""
 
-	amount: float = Field(description='Transaction amount')
+	amount: Decimal = Field(description='Transaction amount')
 	description: str | None = Field(default=None, description='Transaction description')
 	type: TransactionType = Field(description='Transaction type')
 	created_at: datetime = Field(

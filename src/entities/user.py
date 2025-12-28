@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 from uuid import UUID, uuid7
 
-from pydantic import Field
+from pydantic import EmailStr, Field
 
 from src.entities.balance import Balance
 from src.entities.base_entity import BaseEntity
@@ -11,7 +11,7 @@ class User(BaseEntity):
 	"""User entity."""
 
 	id: UUID = Field(default_factory=uuid7)
-	email: str = Field(description='User email')
+	email: EmailStr = Field(description='User email')
 	first_name: str = Field(description='User first name')
 	last_name: str = Field(description='User last name')
 	is_active: bool = Field(description='User is active')
