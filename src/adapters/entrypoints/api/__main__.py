@@ -1,9 +1,8 @@
 """Initialize Uvicorn."""
 
-
 import uvicorn
 
-from src.settings.config import Environments, System
+from src.config import Environments, System
 
 
 def api() -> None:

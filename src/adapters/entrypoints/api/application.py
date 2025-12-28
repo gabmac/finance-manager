@@ -30,7 +30,7 @@ from src.adapters.entrypoints.api.router import API, AuthAPI
 from src.adapters.entrypoints.api.user.callback import CallbackRouter
 from src.adapters.entrypoints.api.user.login import LoginRouter
 from src.adapters.sso.google import GoogleSSOAdapter
-from src.settings.config import GoogleConfig, JWTConfig, PostgresConfig, System
+from src.config import GoogleConfig, JWTConfig, PostgresConfig, System
 from src.use_case.callback import CallbackUseCase
 from src.use_case.get_balance import GetBalanceUseCase
 from src.use_case.login import LoginUseCase

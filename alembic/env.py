@@ -2,10 +2,10 @@ from logging.config import fileConfig
 
 from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
+from src.adapters.database.session import DatabaseSettings
 
 from alembic import context
-from src.adapters.database.session import DatabaseSettings
-from src.settings.config import PostgresConfig
+from src.config import PostgresConfig
 
 load_dotenv()
 

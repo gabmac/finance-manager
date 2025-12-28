@@ -3,9 +3,9 @@ from typing import Any
 from fastapi import Request
 from fastapi_sso.sso.google import GoogleSSO
 
+from src.config import GoogleConfig
 from src.entities.user import User
 from src.ports.sso import SSOPort
-from src.settings.config import GoogleConfig
 
 
 class GoogleSSOAdapter(SSOPort):

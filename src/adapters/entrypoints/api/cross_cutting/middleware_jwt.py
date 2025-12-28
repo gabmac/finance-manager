@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
 
-from src.settings.config import JWTConfig
+from src.config import JWTConfig
 
 
 class JWTValidationMiddleware(BaseHTTPMiddleware):
@@ -18,16 +18,14 @@ class JWTValidationMiddleware(BaseHTTPMiddleware):
 		'/redoc',
 		'/openapi.json',
 		'/api/health',
-        '/docs/',
+		'/docs/',
 		'/redoc/',
 		'/openapi.json/',
 		'/api/health/',
 	}
 
 	# Path prefixes that don't require authentication
-	EXCLUDED_PREFIXES: tuple[str, ...] = (
-		'/auth/',
-	)
+	EXCLUDED_PREFIXES: tuple[str, ...] = ('/auth/',)
 
 	def __init__(
 		self,

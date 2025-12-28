@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from src.adapters.database.models.base_model import BaseModel
 from src.adapters.database.models.session import DatabaseSettings
 from src.adapters.entrypoints.api.application import create_app
-from src.settings.config import JWTConfig
+from src.config import JWTConfig
 from test.conftest import BaseConfTest
 
 # Tell testing.postgresql where to find PostgreSQL binaries (Homebrew path)
@@ -58,7 +58,8 @@ class BaseViewConfTest(BaseConfTest):
 	def create_jwt_token(self, user_id: str) -> str:
 		payload = {
 			'sub': user_id,
-			'exp': datetime.now(UTC) + timedelta(hours=self.jwt_config.expiration_hours),
+			'exp': datetime.now(UTC)
+			+ timedelta(hours=self.jwt_config.expiration_hours),
 		}
 		return jwt.encode(
 			payload,

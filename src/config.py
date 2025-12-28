@@ -74,5 +74,6 @@ class JWTConfig(BaseSettings):
 		description='Algorithm of the system',
 	)
 	expiration_hours: int = Field(
-		description='Expiration time of the system', default=12
+		description='Expiration time of the system',
+		default=12,
 	)
