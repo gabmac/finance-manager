@@ -2,7 +2,7 @@ from uuid import UUID
 
 from fastapi import HTTPException, status
 
-from src.dto.out.balance import BalanceResponse
+from src.dto.output.balance import BalanceResponse
 from src.exceptions import NotFound
 from src.ports.base_router import BaseRouterView
 from src.use_case.get_balance import GetBalanceUseCase
